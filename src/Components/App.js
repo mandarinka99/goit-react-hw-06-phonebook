@@ -5,7 +5,7 @@ import Container from "./container/Container";
 import CreateContactForm from "./createContactForm/CreateContactForm";
 import FilterContacts from "./filterContacts/FilterContacts";
 import { connect } from 'react-redux';
-import {filterChange, createContact, setContacts} from '../redux/contacts/contacts-actions'
+import {filterChange, createContact, setContacts, deleteContact} from '../redux/contacts/contacts-actions'
 
 class App extends Component {
 
@@ -29,22 +29,13 @@ class App extends Component {
   onSubmit = (number, name) => {
     const find = this.props.contacts.find(contact =>
         contact.name.toLowerCase() === name.toLowerCase())
-    if (find) return alert(`${name} is already in contacts`)
-    const contactsArr = [...this.props.contacts];
-    contactsArr.push({
-      id: uuidv4(),
-      name,
-      number
-    });
-    //CreateContacts
-    this.props.setContacts(contactsArr);
+    if (find) return alert(`${name} is already in contacts`);
+    this.props.createContact(name, number);
   };
 
   deleteContact = (id) => {
-    const newContactsList = this.props.contacts.filter(contact =>
-      contact.id !== id)
-      this.props.setContacts(newContactsList);
-    }
+    this.props.deleteContact(id);
+  }
 
 
   render() {
@@ -84,6 +75,7 @@ const mapDispatchToProps = dispatch => ({
   setContacts: contacts => dispatch(setContacts(contacts)),
   onFilterChange: value => dispatch(filterChange(value)),
   createContact: (name, number) => dispatch(createContact(name, number)),
+  deleteContact: (contactId) => dispatch(deleteContact(contactId))
 });
 
 

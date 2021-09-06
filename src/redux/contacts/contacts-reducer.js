@@ -7,8 +7,8 @@ const items = (state = [], { type, payload }) => {
       return [...state, payload];
     case types.SET:
       return [...payload];
-    case types.DELETE:
-      return payload;
+    case types.DELETE: 
+      return state.filter(contact => contact.id !== payload);
     default:
       return state;
   }
