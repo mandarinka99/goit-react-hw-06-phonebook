@@ -9,17 +9,17 @@ const initialState = {
   number: ''
 };
 
-const CreateContactForm = ({onChange}) => {
+const CreateContactForm = () => {
   const [contact, setContact] = useState({...initialState});
   const contacts = useSelector(state => state.contacts.items);
   const dispatch = useDispatch();
 
-  const onHandleChange = (e) => {
+  const onHandleChange = e => {
     const { name, value } = e.target;
     setContact({...contact, [name]: value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const find = contacts.find(
       (newContact) => newContact.name.toLowerCase() === contact.name.toLowerCase()
