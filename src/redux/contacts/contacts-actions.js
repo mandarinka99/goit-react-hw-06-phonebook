@@ -24,5 +24,3 @@ export const filterChange = value => ({
   type: types.FILTER,
   payload: value
 });
-
-export default {filterChange, createContact, setContacts, deleteContact};

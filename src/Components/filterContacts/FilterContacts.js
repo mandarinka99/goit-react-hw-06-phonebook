@@ -1,7 +1,14 @@
 import s from "./FilterContactForm.module.css";
 import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import {filterChange} from '../../redux/contacts/contacts-actions';
 
-const FilterContacts = ({onHandleChange}) => {
+const FilterContacts = ({onFilterChange}) => {
+
+  const onHandleChange = (e) => {
+    const { value } = e.target;
+    onFilterChange(value)
+  };
   return (
     <div>
       <form className={s.form} onSubmit={e => e.preventDefault()}>
@@ -23,7 +30,11 @@ const FilterContacts = ({onHandleChange}) => {
 }
 
 FilterContacts.propTypes = {
-  onHandleChange: PropTypes.func,
+  onFilterChange: PropTypes.func,
 }
 
-export default FilterContacts;
+const mapDispatchToProps = dispatch => ({
+  onFilterChange: value => dispatch(filterChange(value)),
+});
+
+export default connect(null, mapDispatchToProps)(FilterContacts);
