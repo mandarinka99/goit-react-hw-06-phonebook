@@ -1,13 +1,12 @@
 import s from "./FilterContactForm.module.css";
-import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { useDispatch } from "react-redux";
 import {filterChange} from '../../redux/contacts/contacts-actions';
 
-const FilterContacts = ({onFilterChange}) => {
-
-  const onHandleChange = (e) => {
+const FilterContacts = () => {
+  const dispatch = useDispatch();
+  const onHandleChange = e => {
     const { value } = e.target;
-    onFilterChange(value)
+    dispatch(filterChange(value));
   };
   return (
     <div>
@@ -29,12 +28,4 @@ const FilterContacts = ({onFilterChange}) => {
   );
 }
 
-FilterContacts.propTypes = {
-  onFilterChange: PropTypes.func,
-}
-
-const mapDispatchToProps = dispatch => ({
-  onFilterChange: value => dispatch(filterChange(value)),
-});
-
-export default connect(null, mapDispatchToProps)(FilterContacts);
+export default FilterContacts;
