@@ -3,6 +3,7 @@ import s from "./CreateContactForm.module.css";
 import { useSelector, useDispatch} from "react-redux";
 import {createContact} from "../../redux/contacts/contacts-actions";
 import { useState } from "react";
+import { getContacts } from "../../redux/contacts/contacts-selectors";
 
 const initialState = {
   name: '',
@@ -11,7 +12,7 @@ const initialState = {
 
 const CreateContactForm = () => {
   const [contact, setContact] = useState({...initialState});
-  const contacts = useSelector(state => state.contacts.items);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const onHandleChange = e => {
